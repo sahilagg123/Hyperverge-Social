@@ -12,6 +12,7 @@ import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute'
 import Dashboard from './components/dashboard/Dashboard';
+import Posts from './components/posts/Posts';
 const App = () => {
   useEffect(() => {
     // check for token in LS
@@ -36,6 +37,7 @@ const App = () => {
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
             <PrivateRoute eaxct path='/dashboard' component={Dashboard}></PrivateRoute>
+            <PrivateRoute eaxct path='/posts' component={Posts}></PrivateRoute>
           </Switch>
         </section>
       </Fragment>

@@ -20,6 +20,16 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   );
   const UserLinks = (
     <ul>
+       <li>
+        <a href='#!'>
+          <span>Friends Posts</span>
+        </a>
+      </li>
+      <li>
+        <a href='/posts'>
+          <span>My Posts</span>
+        </a>
+      </li>
       <li>
         <a onClick={logout} href='#!'>
           <i className='fas fa-sign-out-alt'></i>
@@ -27,6 +37,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <span className='hide-sm'>Logout</span>
         </a>
       </li>
+      
     </ul>
   );
   return (
