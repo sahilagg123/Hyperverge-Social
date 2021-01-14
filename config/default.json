@@ -1,0 +1,4 @@
+{
+    "mongoURI":"mongodb+srv://sahil:sahil123@cluster0.beidb.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    "jwtSecret":"secret123"
+}
