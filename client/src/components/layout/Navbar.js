@@ -20,10 +20,8 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   );
   const UserLinks = (
     <ul>
-       <li>
-        <a href='#!'>
-          <span>Friends Posts</span>
-        </a>
+      <li>
+        <a href='/profiles'>Developers</a>
       </li>
       <li>
         <a href='/posts'>
@@ -37,7 +35,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <span className='hide-sm'>Logout</span>
         </a>
       </li>
-      
     </ul>
   );
   return (

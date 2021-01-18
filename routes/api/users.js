@@ -6,9 +6,43 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
 const normalize = require('normalize-url');
+const auth = require('../../middleware/auth');
 
 const User = require('../../models/User');
-  
+router.post('/follow', auth, async (req, res) => {
+  const { sender_id } = req.body;
+  try {
+    console.log(req.user.id);
+    const user = await User.findById(req.user.id);
+    comsole.log(user);
+    const friend = user.friends.find(id => {
+      return id === sender_id;
+    });
+
+    user.friends.push(sender_id);
+    await user.save();
+    res.send('Followed');
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
+});
+
+router.post('/unfollow', auth, async (req, res) => {
+  const { sender_id } = req.body;
+  try {
+    const user = await User.findOne({
+      user: req.user.id,
+    });
+    const friend = user.friends.find(id => {
+      return id === sender_id;
+    });
+
+    friend !== null &&
+      (user.friends = user.friends.filter(item => item !== value));
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
+});
 // @route    POST api/users
 // @desc     Register user
 // @access   Public
@@ -23,7 +57,7 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(req.body)
+      console.log(req.body);
       return res.status(400).json({ errors: errors.array() });
     }
 
@@ -42,7 +76,7 @@ router.post(
         gravatar.url(email, {
           s: '200',
           r: 'pg',
-          d: 'mm'
+          d: 'mm',
         }),
         { forceHttps: true }
       );
@@ -51,7 +85,7 @@ router.post(
         name,
         email,
         avatar,
-        password
+        password,
       });
 
       const salt = await bcrypt.genSalt(10);
@@ -62,8 +96,8 @@ router.post(
 
       const payload = {
         user: {
-          id: user.id
-        }
+          id: user.id,
+        },
       };
 
       jwt.sign(
@@ -74,7 +108,7 @@ router.post(
           if (err) throw err;
           res.json({ token });
         }
-      ); 
+      );
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
